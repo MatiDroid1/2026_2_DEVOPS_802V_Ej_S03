@@ -43,7 +43,7 @@ jobs:
           AWS_USER: ${{ secrets.AWS_USER }}
         run: |
           ssh -i ~/.ssh/labsuser.pem "$AWS_USER@$AWS_HOST" "rm -rf /tmp/cloudflow-site && mkdir -p /tmp/cloudflow-site"
-          scp -i ~/.ssh/labsuser.pem -r index.html assets "$AWS_USER@$AWS_HOST:/tmp/cloudflow-site/"
+          scp -i ~/.ssh/labsuser.pem -r index.html "$AWS_USER@$AWS_HOST:/tmp/cloudflow-site/"
 
       - name: 4. Publicar en Apache
         shell: bash
