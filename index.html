@@ -3,136 +3,1008 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Planilla simple</title>
+    <meta
+      name="description"
+      content="RadioScan Diagnóstico por Imágenes. Radiología de última generación con resultados rápidos y precisos."
+    />
+    <title>RadioScan · Diagnóstico por Imágenes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg: #f3f3f3;
+        --bg: #f5f8fc;
         --panel: #ffffff;
-        --line: #d6d6d6;
-        --text: #222222;
-        --muted: #666666;
-        --head: #f0f0f0;
+        --ink: #0f2440;
+        --muted: #5a6c85;
+        --brand: #0b6cfb;
+        --brand-dark: #084db4;
+        --brand-soft: #e7f1ff;
+        --accent: #00c2b2;
+        --line: #dde7f2;
+        --shadow: 0 10px 30px rgba(11, 60, 140, 0.10);
+        --radius: 16px;
       }
 
       * { box-sizing: border-box; }
 
+      html { scroll-behavior: smooth; }
+
       body {
         margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Inter", Arial, Helvetica, sans-serif;
         background: var(--bg);
-        color: var(--text);
+        color: var(--ink);
+        line-height: 1.55;
       }
 
-      .contenedor {
-        max-width: 900px;
-        margin: 32px auto;
+      img { max-width: 100%; display: block; }
+
+      a { color: inherit; text-decoration: none; }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* ---------- Barra superior ---------- */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        height: 72px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.5px;
+      }
+
+      .logo-badge {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--brand), var(--accent));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 800;
+        font-size: 18px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        font-weight: 500;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      .nav-links a:hover { color: var(--brand); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 15px;
+        border-radius: 10px;
+        padding: 12px 22px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      }
+
+      .btn-primary {
+        background: var(--brand);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(11, 108, 251, 0.35);
+      }
+
+      .btn-primary:hover {
+        background: var(--brand-dark);
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--brand);
+        border: 1.5px solid var(--brand);
+      }
+
+      .btn-ghost:hover { background: var(--brand-soft); }
+
+      .btn-white {
+        background: #fff;
+        color: var(--brand-dark);
+      }
+
+      .btn-white:hover { transform: translateY(-2px); }
+
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        background:
+          radial-gradient(900px 420px at 85% -10%, rgba(0, 194, 178, 0.18), transparent 60%),
+          radial-gradient(700px 420px at 10% 10%, rgba(11, 108, 251, 0.16), transparent 60%),
+          linear-gradient(180deg, #f0f6ff 0%, var(--bg) 100%);
+        padding: 88px 0;
+        overflow: hidden;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .badge-hero {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--brand-soft);
+        color: var(--brand-dark);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+      }
+
+      .hero h1 {
+        font-size: clamp(34px, 5vw, 52px);
+        line-height: 1.08;
+        letter-spacing: -1.5px;
+        margin: 0 0 18px;
+        font-weight: 800;
+      }
+
+      .hero h1 span {
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero p.lead {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 0 30px;
+      }
+
+      .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 34px; }
+
+      .hero-points {
+        display: flex;
+        gap: 26px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 14.5px;
+        font-weight: 500;
+      }
+
+      .hero-points span { display: inline-flex; align-items: center; gap: 7px; }
+      .hero-points svg { color: var(--accent); }
+
+      .hero-visual {
+        position: relative;
         background: var(--panel);
         border: 1px solid var(--line);
-        padding: 20px;
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
       }
 
-      h1 {
-        margin: 0 0 18px;
-        font-size: 24px;
-        font-weight: 600;
+      .hero-visual::before {
+        content: "";
+        position: absolute;
+        inset: -14px;
+        border-radius: 32px;
+        background: linear-gradient(135deg, rgba(11, 108, 251, 0.14), rgba(0, 194, 178, 0.14));
+        z-index: -1;
       }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14px;
+      .scan-screen {
+        background: #0a1a2f;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 18px;
       }
 
-      th, td {
-        border: 1px solid var(--line);
-        padding: 10px 8px;
-        text-align: left;
+      .scan-screen .scan-head {
+        display: flex;
+        gap: 6px;
+        padding: 12px 14px;
       }
 
-      th {
-        background: var(--head);
-        font-weight: 600;
+      .scan-screen .dot { width: 10px; height: 10px; border-radius: 50%; }
+      .scan-screen .dot:nth-child(1) { background: #ff5f57; }
+      .scan-screen .dot:nth-child(2) { background: #febc2e; }
+      .scan-screen .dot:nth-child(3) { background: #28c840; }
+
+      .scan-body {
+        position: relative;
+        height: 200px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
       }
 
-      .numero {
-        text-align: right;
+      .scan-body .vista {
+        width: 58%;
+        height: 70%;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 30% 30%, #eaf4ff, #b6d7ff 40%, #7fb2f0 60%, #4a7fc4 78%, #1c3a63);
+        opacity: 0.85;
+        position: relative;
       }
 
-      .total-row td {
+      .scan-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        box-shadow: 0 0 18px rgba(0, 194, 178, 0.9);
+        animation: scan 3.2s ease-in-out infinite;
+      }
+
+      @keyframes scan {
+        0%, 100% { top: 12%; opacity: 0; }
+        12% { opacity: 1; }
+        50% { top: 86%; }
+        88% { opacity: 1; }
+        100% { top: 12%; }
+      }
+
+      .scan-body .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 194, 178, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 194, 178, 0.08) 1px, transparent 1px);
+        background-size: 26px 26px;
+      }
+
+      .readout {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 12.5px;
+        font-weight: 500;
+      }
+
+      .readout b { color: var(--ink); font-weight: 600; }
+
+      /* ---------- Secciones ---------- */
+      section { padding: 84px 0; }
+
+      .section-head {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 52px;
+      }
+
+      .kicker {
+        display: inline-block;
         font-weight: 700;
-        background: #fafafa;
+        font-size: 13px;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: var(--brand);
+        margin-bottom: 12px;
       }
 
-      .total-row td:last-child {
-        text-align: right;
+      .section-head h2 {
+        font-size: clamp(28px, 3.6vw, 40px);
+        letter-spacing: -1px;
+        margin: 0 0 14px;
+      }
+
+      .section-head p { color: var(--muted); font-size: 17px; margin: 0; }
+
+      /* ---------- Servicios ---------- */
+      .servicios {
+        background: var(--panel);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+        border-color: rgba(11, 108, 251, 0.35);
+      }
+
+      .card .icono {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--brand-soft);
+        color: var(--brand);
+        display: grid;
+        place-items: center;
+        margin-bottom: 16px;
+      }
+
+      .card h3 { margin: 0 0 8px; font-size: 18px; letter-spacing: -0.3px; }
+      .card p { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+      .card .meta { font-size: 13px; font-weight: 600; color: var(--brand-dark); }
+
+      /* ---------- Estadísticas ---------- */
+      .stats {
+        background: linear-gradient(135deg, #082c56, #0b6cfb 60%, #00c2b2);
+        color: #fff;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        text-align: center;
+      }
+
+      .stat b {
+        display: block;
+        font-size: clamp(32px, 4vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+
+      .stat span { opacity: 0.85; font-size: 15px; font-weight: 500; }
+
+      /* ---------- Por qué nosotros ---------- */
+      .porque-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .porque-item {
+        display: flex;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .porque-item:last-child { border-bottom: none; }
+
+      .porque-item .num {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--brand), var(--accent));
+        color: #fff;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+
+      .porque-item h3 { margin: 0 0 4px; font-size: 17px; }
+      .porque-item p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+      .panel-info {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 34px;
+        box-shadow: var(--shadow);
+      }
+
+      .panel-info h3 { margin: 0 0 18px; font-size: 22px; letter-spacing: -0.5px; }
+
+      .tecnologia {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .tecnologia .tipo { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14.5px; }
+      .tecnologia .tipo b { color: var(--ink); }
+      .tecnologia svg { color: var(--accent); }
+
+      .barra {
+        margin-top: 22px;
+      }
+
+      .barra .fil {
+        margin-bottom: 16px;
+      }
+
+      .barra .fil .cap {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13.5px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .fill {
+        height: 8px;
+        border-radius: 99px;
+        background: var(--line);
+        overflow: hidden;
+      }
+
+      .fill i {
+        display: block;
+        height: 100%;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+      }
+
+      /* ---------- Testimonios ---------- */
+      .testimonios { background: var(--panel); border-top: 1px solid var(--line); }
+
+      .testi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 22px;
+      }
+
+      .testi {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+      }
+
+      .testi .stars { color: #f5a623; letter-spacing: 2px; margin-bottom: 12px; }
+      .testi p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
+
+      .testi .persona {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .testi .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--brand), var(--accent));
+        color: #fff;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+
+      .testi .persona b { font-size: 15px; display: block; }
+      .testi .persona span { font-size: 13px; color: var(--muted); }
+
+      /* ---------- CTA ---------- */
+      .cta-final {
+        background:
+          radial-gradient(700px 300px at 80% 0%, rgba(0, 194, 178, 0.3), transparent 60%),
+          linear-gradient(135deg, #082c56, #0b6cfb);
+        color: #fff;
+        text-align: center;
+        border-radius: 24px;
+        padding: 64px 32px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-final h2 {
+        font-size: clamp(28px, 4vw, 42px);
+        letter-spacing: -1px;
+        margin: 0 0 14px;
+      }
+
+      .cta-final p { opacity: 0.9; font-size: 17px; max-width: 520px; margin: 0 auto 30px; }
+
+      .cta-final .horario {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 22px;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      /* ---------- Footer ---------- */
+      .footer {
+        background: #081b33;
+        color: #9fb1c7;
+        padding: 48px 0 30px;
+        margin-top: 84px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 34px;
+      }
+
+      .footer .logo { color: #fff; margin-bottom: 14px; }
+      .footer p { font-size: 14px; margin: 0 0 14px; max-width: 300px; }
+
+      .footer h4 {
+        color: #fff;
+        margin: 0 0 14px;
+        font-size: 15px;
+      }
+
+      .footer ul { list-style: none; margin: 0; padding: 0; }
+      .footer ul li { margin-bottom: 10px; font-size: 14px; }
+      .footer ul a:hover { color: var(--accent); }
+
+      .footer .base {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 22px;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-size: 13px;
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 900px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .porque-grid { grid-template-columns: 1fr; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 720px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 72px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: #fff;
+          padding: 18px 20px;
+          gap: 16px;
+          border-bottom: 1px solid var(--line);
+          box-shadow: var(--shadow);
+        }
+
+        .nav-links.open { display: flex; }
+        .menu-toggle { display: block; }
+        .nav .btn-primary.top { display: none; }
+        .footer-grid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
   <body>
-    <div class="contenedor">
-      <h1>Planilla</h1>
+    <!-- Barra de navegación -->
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a href="#top" class="logo">
+          <span class="logo-badge">R</span>
+          RadioScan
+        </a>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lapicera</td>
-            <td class="numero"><input type="number" value="2" min="0" /></td>
-            <td class="numero"><input type="number" value="4.5" min="0" step="0.1" /></td>
-            <td class="numero total-celda">9.00</td>
-          </tr>
-          <tr>
-            <td>Cuaderno</td>
-            <td class="numero"><input type="number" value="3" min="0" /></td>
-            <td class="numero"><input type="number" value="7.5" min="0" step="0.1" /></td>
-            <td class="numero total-celda">22.50</td>
-          </tr>
-          <tr>
-            <td>Tinta</td>
-            <td class="numero"><input type="number" value="1" min="0" /></td>
-            <td class="numero"><input type="number" value="12" min="0" step="0.1" /></td>
-            <td class="numero total-celda">12.00</td>
-          </tr>
-          <tr class="total-row">
-            <td colspan="3">Total</td>
-            <td id="total-general">43.50</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        <div class="nav-links" id="menu">
+          <a href="#servicios">Servicios</a>
+          <a href="#nosotros">Por qué nosotros</a>
+          <a href="#testimonios">Opiniones</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+
+        <a class="btn btn-primary top" href="#contacto">Pedir turno</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0f2440" stroke-width="2" stroke-linecap="round">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="badge-hero">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" />
+            </svg>
+            Tecnología de última generación
+          </span>
+          <h1>Diagnóstico por imágenes con <span>precisión</span> y rapidez</h1>
+          <p class="lead">
+            En RadioScan combinamos equipos de avanzada y un equipo médico de excelencia
+            para que tu diagnóstico sea claro, seguro y sin demoras.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contacto">Pedir turno online</a>
+            <a class="btn btn-ghost" href="#servicios">Ver estudios</a>
+          </div>
+          <div class="hero-points">
+            <span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              Resultado en 24 hs
+            </span>
+            <span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              Reserva online
+            </span>
+            <span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              Obras sociales
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="scan-screen">
+            <div class="scan-head">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="scan-body">
+              <div class="grid"></div>
+              <div class="vista"></div>
+              <div class="scan-line"></div>
+            </div>
+          </div>
+          <div class="readout">
+            <span>Tomografía · TC 128 cortes</span>
+            <span><b>98&nbsp;%</b> precisión</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Servicios -->
+    <section class="servicios" id="servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Nuestros servicios</span>
+          <h2>Estudios con la mejor tecnología</h2>
+          <p>Contamos con un parque de equipos de última generación para cada tipo de estudio.</p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="16" x2="13" y2="16"/></svg>
+            </div>
+            <h3>Radiografía digital</h3>
+            <p>Imágenes de alta definición con mínima radiación para estudios de tórax, columna, extremidades y más.</p>
+            <span class="meta">Resultado en 24 hs</span>
+          </div>
+
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.8"/><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="0.8"/><circle cx="17" cy="9" r="0.8"/></svg>
+            </div>
+            <h3>Resonancia magnética</h3>
+            <p>Equipos abiertos de 1.5T con estudios de alta resolución en neurología, musculoesqueleto y abdomen.</p>
+            <span class="meta">Contraste seguro · 45 min</span>
+          </div>
+
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14"/><path d="M2 19h20"/><path d="M9 10l2 2 4-4"/></svg>
+            </div>
+            <h3>Tomografía computada</h3>
+            <p>TC multicorte de 128 filas para estudios oncológicos, vasculares, craneales y cardíacos.</p>
+            <span class="meta">Mínima dosis de radiación</span>
+          </div>
+
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+            </div>
+            <h3>Ecografías</h3>
+            <p>Ecografía general, ginecológica, obstétrica, doppler y músculo esquelético en tiempo real.</p>
+            <span class="meta">0 radiación · sin esperas</span>
+          </div>
+
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg>
+            </div>
+            <h3>Mamografía digital</h3>
+            <p>Mamógrafo con tomosíntesis 3D para una detección temprana más precisa y confortable.</p>
+            <span class="meta">Detección temprana</span>
+          </div>
+
+          <div class="card">
+            <div class="icono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+            </div>
+            <h3>Densitometría ósea</h3>
+            <p>Evaluación de la salud ósea con medición exacta de densidad mineral para osteoporosis.</p>
+            <span class="meta">Indicada al hacer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estadísticas -->
+    <section class="stats">
+      <div class="wrap stats-grid">
+        <div class="stat">
+          <b>+180 mil</b>
+          <span>estudios realizados</span>
+        </div>
+        <div class="stat">
+          <b>24 hs</b>
+          <span>resultados en plazo</span>
+        </div>
+        <div class="stat">
+          <b>15 min</b>
+          <span>tiempo de espera</span>
+        </div>
+        <div class="stat">
+          <b>48</b>
+          <span>profesionales médicos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Por qué nosotros -->
+    <section id="nosotros">
+      <div class="wrap porque-grid">
+        <div>
+          <div class="section-head" style="text-align:left; margin:0 0 30px;">
+            <span class="kicker">Por qué elegirnos</span>
+            <h2>Tranquilidad en cada paso del diagnóstico</h2>
+            <p>Desde que llegás hasta que recibís tu resultado, cuidamos cada detalle de tu experiencia.</p>
+          </div>
+
+          <div>
+            <div class="porque-item">
+              <span class="num">1</span>
+              <div>
+                <h3>Informes con doble lectura</h3>
+                <p>Cada estudio es revisado por dos especialistas para garantizar la máxima precisión.</p>
+              </div>
+            </div>
+            <div class="porque-item">
+              <span class="num">2</span>
+              <div>
+                <h3>Tecnología con baja dosis</h3>
+                <p>Protocolos optimizados que reducen la radiación sin perder calidad de imagen.</p>
+              </div>
+            </div>
+            <div class="porque-item">
+              <span class="num">3</span>
+              <div>
+                <h3>Resultados por WhatsApp</h3>
+                <p>Recibí tus informes e imágenes en tu celular, con acceso seguro y encriptado.</p>
+              </div>
+            </div>
+            <div class="porque-item">
+              <span class="num">4</span>
+              <div>
+                <h3>Atención con cobertura total</h3>
+                <p>Convenios con las principales obras sociales y prepagas de la región.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-info">
+          <h3>Nuestros equipos al detalle</h3>
+
+          <div class="tecnologia">
+            <div class="tipo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14"/><path d="M2 19h20"/></svg>
+              <span>TC multicorte <b>128 cortes</b></span>
+            </div>
+          </div>
+
+          <div class="barra">
+            <div class="fil">
+              <div class="cap"><span>Resonancia · <b>Cerrado 1.5T</b></span><span>97%</span></div>
+              <div class="fill"><i style="width:97%"></i></div>
+            </div>
+            <div class="fil">
+              <div class="cap"><span>Tomografía · <b>128 filas</b></span><span>95%</span></div>
+              <div class="fill"><i style="width:95%"></i></div>
+            </div>
+            <div class="fil">
+              <div class="cap"><span>Mamografía · <b>Tomosíntesis 3D</b></span><span>92%</span></div>
+              <div class="fill"><i style="width:92%"></i></div>
+            </div>
+            <div class="fil">
+              <div class="cap"><span>Ecografía · <b>Doppler 4D</b></span><span>90%</span></div>
+              <div class="fill"><i style="width:90%"></i></div>
+            </div>
+          </div>
+
+          <p style="color:var(--muted); font-size:14px; margin:22px 0 0;">
+            Índice de satisfacción de pacientes en función de la experiencia de estudio y la cualidad de los informes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonios" id="testimonios">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Testimonios</span>
+          <h2>Lo que dicen nuestros pacientes</h2>
+          <p>Más de 90 puntos de puntuación media en reseñas de usuarios.</p>
+        </div>
+
+        <div class="testi-grid">
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Me impresionó la rapidez del proceso. Entré a las 9 y a las 10 ya tenía mis
+              tomografías con el informe completo. Muy recomendable."
+            </p>
+            <div class="persona">
+              <span class="avatar">MR</span>
+              <span><b>María Ríos</b><span>Paciente de tomografía</span></span>
+            </div>
+          </div>
+
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>
+              "El servicio de resonancia fue impecable. El médico me explicó paso a paso y
+              el resultado llegó por WhatsApp a la tarde. Excelente trato humano."
+            </p>
+            <div class="persona">
+              <span class="avatar">JL</span>
+              <span><b>Jorge Ledesma</b><span>Paciente de resonancia</span></span>
+            </div>
+          </div>
+
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>
+              "Hice el trámite todo online: pedí turno por la web, elegí la fecha y pagué con
+              obra social. Nunca había tenido una experiencia tan simple en un centro médico."
+            </p>
+            <div class="persona">
+              <span class="avatar">AS</span>
+              <span><b>Ana Soria</b><span>Paciente de mamografía</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Referencias de confianza -->
+    <section id="contacto" style="padding-top:16px;">
+      <div class="wrap">
+        <div class="cta-final">
+          <span class="kicker" style="color:#9fe8ff;">Contacto</span>
+          <h2>Pedí tu turno en menos de un minuto</h2>
+          <p>
+            Elegí el estudio, la fecha y el horario que más te convenga.
+            También podés contactarnos por teléfono o WhatsApp.
+          </p>
+          <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+            <a class="btn btn-white" href="#">Pedir turno online</a>
+            <a class="btn" style="background:transparent; border:1.5px solid #fff; color:#fff;" href="#">
+              Llamar: (011) 5555-0100
+            </a>
+          </div>
+          <div class="horario">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            Lun a Sáb · 7:00 a 20:00 hs · Cuatro bocas
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <a href="#top" class="logo">
+              <span class="logo-badge">R</span>
+              RadioScan
+            </a>
+            <p>Centro de diagnóstico por imágenes que combina tecnología de avanzada con un trato humano y cercano.</p>
+          </div>
+
+          <div>
+            <h4>Estudios</h4>
+            <ul>
+              <li><a href="#servicios">Radiografía digital</a></li>
+              <li><a href="#servicios">Resonancia magnética</a></li>
+              <li><a href="#servicios">Tomografía computada</a></li>
+              <li><a href="#servicios">Ecografías</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Institucional</h4>
+            <ul>
+              <li><a href="#nosotros">Por qué elegirnos</a></li>
+              <li><a href="#testimonios">Opiniones</a></li>
+              <li><a href="#contacto">Turnos online</a></li>
+              <li><a href="#">Obras sociales</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Contacto</h4>
+            <ul>
+              <li>Av. de la Salud 2450</li>
+              <li>(011) 5555-0100</li>
+              <li>turnos@radioscan.com.ar</li>
+              <li>Lun a Sáb · 7:00 a 20:00 hs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="base">
+          <span>© 2026 RadioScan · Diagnóstico por Imágenes</span>
+          <span>Todos los derechos reservados</span>
+        </div>
+      </div>
+    </footer>
 
     <script>
-      const rows = document.querySelectorAll('tbody tr:not(.total-row)');
-      const totalGeneral = document.getElementById('total-general');
+      const toggle = document.getElementById('menuToggle');
+      const menu = document.getElementById('menu');
 
-      function actualizarTotales() {
-        let total = 0;
-
-        rows.forEach((row) => {
-          const inputs = row.querySelectorAll('input');
-          const cantidad = Number(inputs[0].value) || 0;
-          const precio = Number(inputs[1].value) || 0;
-          const subtotal = cantidad * precio;
-          row.querySelector('.total-celda').textContent = subtotal.toFixed(2);
-          total += subtotal;
-        });
-
-        totalGeneral.textContent = total.toFixed(2);
-      }
-
-      document.querySelectorAll('input').forEach((input) => {
-        input.addEventListener('input', actualizarTotales);
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('open');
       });
 
-      actualizarTotales();
+      menu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('open');
+        });
+      });
     </script>
   </body>
 </html>
-
